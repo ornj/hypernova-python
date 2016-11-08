@@ -15,7 +15,7 @@ def read(fname):
 
 setup(
     name='hypernova',
-    version='0.0.2',
+    version='0.0.3',
     author='Stephen Hurwitz',
     author_email='ornj@stevehurwitz.com',
     url='https://github.com/ornj/hypernova-python',
