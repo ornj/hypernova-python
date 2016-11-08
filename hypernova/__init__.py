@@ -89,7 +89,7 @@ class Renderer(object):
                     response_data = render_fallback(
                         response.json().get('error'), jobs_hash
                     )
-            except requests.exceptions.ConnectionError, err:
+            except requests.exceptions.ConnectionError as err:
                 self.plugin_reduce(
                     'on_error', lambda plugin, _: plugin(err.message, job_hash)
                 )
