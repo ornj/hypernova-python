@@ -1,5 +1,7 @@
+import functools
 import json
 import requests
+import six
 
 
 def render_html(name, data):
@@ -12,7 +14,7 @@ def render_html(name, data):
 
 def render_fallback(error, jobs):
     results = {}
-    for name, job in jobs.iteritems():
+    for name, job in six.iteritems(jobs):
         results[name] = {
             'error': None,
             'html': render_html(name, job.get('data')),
@@ -34,14 +36,14 @@ class Renderer(object):
         self.headers = headers or {'Content-Type': 'application/json'}
 
     def plugin_reduce(self, event_name, fn, init=None):
-        return reduce(
+        return functools.reduce(
             lambda a, b: fn(getattr(b, event_name), a) if hasattr(b, event_name) else a,
             self.plugins, init
         )
 
     def create_jobs(self, jobs):
         created = {}
-        for job_name, job_data in jobs.iteritems():
+        for job_name, job_data in six.iteritems(jobs):
             job_data = self.plugin_reduce(
                 'get_view_data', 
                 lambda plugin, new_data: plugin(job_name, new_data),
@@ -98,7 +100,7 @@ class Renderer(object):
             )
 
         successful_jobs = []
-        for name, body in results.iteritems():
+        for name, body in six.iteritems(results):
             body['job'] = jobs_hash.get(name)
             error = body.get('error')
             if error:
