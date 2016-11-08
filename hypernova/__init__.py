@@ -76,18 +76,24 @@ class Renderer(object):
             self.plugin_reduce(
                 'will_send_request', lambda plugin, _: plugin(jobs_hash)
             )
-            response = requests.post(
-                self.url, 
-                json=jobs_hash, 
-                headers=self.headers, 
-                timeout=self.timeout
-            )
-            if response.ok:
-                response_data = response.json()
-            else:
-                response_data = render_fallback(
-                    response.json().get('error'), jobs_hash
+            try:
+                response = requests.post(
+                    self.url, 
+                    json=jobs_hash, 
+                    headers=self.headers, 
+                    timeout=self.timeout
                 )
+                if response.ok:
+                    response_data = response.json()
+                else:
+                    response_data = render_fallback(
+                        response.json().get('error'), jobs_hash
+                    )
+            except requests.exceptions.ConnectionError as err:
+                self.plugin_reduce(
+                    'on_error', lambda plugin, _: plugin(err.message, job_hash)
+                )
+                response_data = render_fallback(err.message, jobs_hash)
         else:
             response_data = render_fallback(None, jobs_hash)
 
