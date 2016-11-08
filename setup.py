@@ -23,7 +23,7 @@ setup(
     long_description=read('readme.md'),
     keywords='hypernova react javascript client',
     classifiers=[
-        'Development Status :: 3 - Alpha'
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
