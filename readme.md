@@ -17,7 +17,7 @@ Once you have the client installed and an instance of the Hypernova service runn
 ```python
 import hypernova
 
-renderer = hypernova.Renderer('http://localhost')
+renderer = hypernova.Renderer('http://localhost:3030/batch')
 html = renderer.render({'MyComponent.js': {'name': 'Foo'}})
 ```
 
