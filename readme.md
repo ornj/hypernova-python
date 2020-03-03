@@ -7,7 +7,7 @@
 Install the python client from pypi
 
 ```sh
-pip install hypernova-python
+pip install hypernova
 ```
 
 Once you have the client installed and an instance of the Hypernova service running, you can making requests is easy.
