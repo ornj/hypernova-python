@@ -1,15 +1,10 @@
 [flake8]
-exclude = '''
-
-(
-  /(
-      \.git
-    | \.tox
-    | build
-    | dist
-  )/
-)
-'''
+exclude = 
+    .git
+    .tox
+    .pytest_cache
+    build
+    dist
 format = pylint
 max-line-length = 88
 max-complexity = 18
