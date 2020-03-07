@@ -1,4 +1,4 @@
-# hypernova-python [![Build Status](https://travis-ci.org/ornj/hypernova-python.svg?branch=master)](https://travis-ci.org/ornj/hypernova-python)
+# hypernova-python
 
 > A Python client for the Hypernova service
 
