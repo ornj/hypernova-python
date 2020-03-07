@@ -22,6 +22,7 @@ html = renderer.render({'MyComponent.js': {'name': 'Foo'}})
 ```
 
 ## Configuration
+
 You can pass configuration options to `Renderer` at initialization.
 
 * `url`: The address of the Hypernova service is listening, including port if necessary
@@ -29,8 +30,8 @@ You can pass configuration options to `Renderer` at initialization.
 * `timeout`: Number of seconds to wait for a response from the Hypernova service
 * `headers`: Dictionary of HTTP headers to override the default. You will want to include `'Content-Type': 'application/json'`
 
-
 ## Plugins
+
 You can implement custom events and alter requests through the [Plugin Lifecycle](https://github.com/airbnb/hypernova-node/blob/master/README.md#plugin-lifecycle-api). All lifecycle methods are optional.
 
 ### Example
@@ -40,10 +41,19 @@ import hypernova
 import random
 
 class MyPlugin(object):
-	def prepare_request(self, current_jobs, original_jobs):
-		job = current_jobs.get('MyComponent.js')
-		job.update({'random_int_for_reasons': random.randint(0, 100))
-		return current_jobs
-		
+    def prepare_request(self, current_jobs, original_jobs):
+        job = current_jobs.get('MyComponent.js')
+        job.update({'random_int_for_reasons': random.randint(0, 100))
+        return current_jobs
+
 renderer = hypernova.Renderer('http://localhost', [MyPlugin()])
+```
+
+# Running Tests
+
+To run tests with pytest:
+
+```sh
+pip install -e .
+pytest test
 ```

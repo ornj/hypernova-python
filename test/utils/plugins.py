@@ -1,5 +1,4 @@
 class PluginGetViewData(object):
-
     def __init__(self, view_name, return_data):
         self.view_name = view_name
         self.return_data = return_data
@@ -15,7 +14,6 @@ class PluginGetViewDataDoNothing(object):
 
 
 class PluginPrepareRequest(object):
-
     def __init__(self, view_name, to_append):
         self.view_name = view_name
         self.to_append = to_append

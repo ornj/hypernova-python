@@ -1,4 +1,5 @@
 import six
+
 try:
     import httplib
 except ImportError:
@@ -21,32 +22,31 @@ class MockResponse(object):
 
 
 def make_response_ok(*args, **kwargs):
-    data = kwargs.get('json', {})
+    data = kwargs.get("json", {})
     results = {}
     for k, v in six.iteritems(data):
         results[k] = {
-            'error': None, 
-            'html': '<p>{}</p>'.format(json.dumps(v.get('data')))
+            "error": None,
+            "html": "<p>{}</p>".format(json.dumps(v.get("data"))),
         }
-        
-    return MockResponse({'error': None, 'results': results}, httplib.OK)
+
+    return MockResponse({"error": None, "results": results}, httplib.OK)
 
 
 def make_response_component_error(*args, **kwargs):
-    data = kwargs.get('json', {})
+    data = kwargs.get("json", {})
     results = {}
     for k, v in six.iteritems(data):
         results[k] = {
-            'error': 'Something happened', 
-            'html': '<p>{}</p>'.format(json.dumps(v.get('data')))
+            "error": "Something happened",
+            "html": "<p>{}</p>".format(json.dumps(v.get("data"))),
         }
-    return MockResponse({'error': None, 'results': results}, httplib.OK)
+    return MockResponse({"error": None, "results": results}, httplib.OK)
 
 
 def make_response_server_error(*args, **kwargs):
     return MockResponse(
-        {'error': 'Kaboom', 'results': {}}, 
-        httplib.INTERNAL_SERVER_ERROR
+        {"error": "Kaboom", "results": {}}, httplib.INTERNAL_SERVER_ERROR
     )
 
 
