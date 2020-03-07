@@ -1,7 +1,6 @@
 import functools
 import json
 import requests
-import six
 
 
 def render_html(name, data):
@@ -16,7 +15,7 @@ def render_html(name, data):
 
 def render_fallback(error, jobs):
     results = {}
-    for name, job in six.iteritems(jobs):
+    for name, job in jobs.items():
         results[name] = {
             "error": None,
             "html": render_html(name, job.get("data")),
@@ -45,7 +44,7 @@ class Renderer(object):
 
     def create_jobs(self, jobs):
         created = {}
-        for job_name, job_data in six.iteritems(jobs):
+        for job_name, job_data in jobs.items():
             job_data = self.plugin_reduce(
                 "get_view_data",
                 lambda plugin, new_data: plugin(job_name, new_data),
@@ -84,7 +83,7 @@ class Renderer(object):
                     )
             except requests.exceptions.ConnectionError as err:
                 self.plugin_reduce(
-                    "on_error", lambda plugin, _: plugin(err.message, job_hash)
+                    "on_error", lambda plugin, _: plugin(err.message, jobs_hash)
                 )
                 response_data = render_fallback(err.message, jobs_hash)
         else:
@@ -97,7 +96,7 @@ class Renderer(object):
             self.plugin_reduce("on_error", lambda plugin, _: plugin(error, results))
 
         successful_jobs = []
-        for name, body in six.iteritems(results):
+        for name, body in results.items():
             body["job"] = jobs_hash.get(name)
             error = body.get("error")
             if error:

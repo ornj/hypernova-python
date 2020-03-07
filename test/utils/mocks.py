@@ -1,10 +1,4 @@
-import six
-
-try:
-    import httplib
-except ImportError:
-    import http.client as httplib
-
+import http.client as httplib
 import json
 
 
@@ -24,7 +18,7 @@ class MockResponse(object):
 def make_response_ok(*args, **kwargs):
     data = kwargs.get("json", {})
     results = {}
-    for k, v in six.iteritems(data):
+    for k, v in data.items():
         results[k] = {
             "error": None,
             "html": "<p>{}</p>".format(json.dumps(v.get("data"))),
@@ -36,7 +30,7 @@ def make_response_ok(*args, **kwargs):
 def make_response_component_error(*args, **kwargs):
     data = kwargs.get("json", {})
     results = {}
-    for k, v in six.iteritems(data):
+    for k, v in data.items():
         results[k] = {
             "error": "Something happened",
             "html": "<p>{}</p>".format(json.dumps(v.get("data"))),
