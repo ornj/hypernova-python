@@ -1,0 +1,26 @@
+[tool.black]
+line-length = 88
+target-version = ['py37']
+include = '\.pyi?$'
+exclude = '''
+
+(
+  /(
+      \.git
+    | \.tox
+    | \.pytest_cache
+    | build
+    | dist
+  )/
+)
+'''
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = py36,py37,py38
+
+[testenv]
+deps = pytest == 5.3.5
+commands = pytest
+"""
