@@ -1,6 +1,3 @@
-import json
-
-
 def render_stack(error):
     return "\n  ".join(error.get("stack"))
 
@@ -10,7 +7,7 @@ def render_error(component_name, data):
       <div style="background-color: #ff5a5f; color: #fff; padding: 12px;">
         <p style="margin: 0">
           <strong>Warning!</strong>
-          The <code>{}</code> component failed to render with Hypernova. 
+          The <code>{}</code> component failed to render with Hypernova.
           Error stack:
         </p>
         <pre style="padding: 0 20px; white-space: pre-wrap;">{}</pre>

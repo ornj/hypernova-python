@@ -82,8 +82,12 @@ class Renderer(object):
                         response.json().get("error"), jobs_hash
                     )
             except requests.exceptions.ConnectionError as err:
+
                 self.plugin_reduce(
-                    "on_error", lambda plugin, _: plugin(err.message, jobs_hash)
+                    "on_error",
+                    lambda plugin, _: plugin(
+                        err.message, jobs_hash  # noqa F821; bug in flake8
+                    ),
                 )
                 response_data = render_fallback(err.message, jobs_hash)
         else:

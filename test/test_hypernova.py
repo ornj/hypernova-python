@@ -47,7 +47,7 @@ class TestPlugins(unittest.TestCase):
         renderer = hypernova.Renderer(
             "http://localhost", [plugins.PluginPrepareRequest("component", to_append)]
         )
-        html = renderer.render({"component": {}})
+        renderer.render({"component": {}})
         component_data = mock_post.call_args[1]["json"]["component"]
         self.assertEqual(component_data.get("extra"), to_append.get("extra"))
 
@@ -56,7 +56,7 @@ class TestPlugins(unittest.TestCase):
         renderer = hypernova.Renderer(
             "http://localhost", [plugins.PluginShouldSendRequestTrue()]
         )
-        html = renderer.render({"component": {}})
+        renderer.render({"component": {}})
         self.assertTrue(mock_post.called)
 
     @mock.patch("requests.post", side_effect=mocks.make_response_ok)
@@ -64,7 +64,7 @@ class TestPlugins(unittest.TestCase):
         renderer = hypernova.Renderer(
             "http://localhost", [plugins.PluginShouldSendRequestFalse()]
         )
-        html = renderer.render({"component": {}})
+        renderer.render({"component": {}})
         self.assertFalse(mock_post.called)
 
     @mock.patch("requests.post", side_effect=mocks.make_response_ok)
@@ -76,7 +76,7 @@ class TestPlugins(unittest.TestCase):
                 plugins.PluginShouldSendRequestFalse(),
             ],
         )
-        html = renderer.render({"component": {}})
+        renderer.render({"component": {}})
         self.assertFalse(mock_post.called)
 
     @mock.patch("requests.post", side_effect=mocks.make_response_ok)
