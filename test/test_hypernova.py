@@ -1,8 +1,10 @@
+import logging
 import json
 import hypernova
 import unittest
 import unittest.mock as mock
 
+from hypernova.plugins.dev_mode import DevModePlugin
 import utils.mocks as mocks
 import utils.plugins as plugins
 
@@ -123,3 +125,12 @@ class TestPlugins(unittest.TestCase):
         renderer = hypernova.Renderer("http://localhost", [plugins.PluginOnError()])
         renderer.render({"component": {}})
         self.assertEqual(1, mock_plugin.call_count)
+
+
+class TestDevModePlugin(unittest.TestCase):
+    def test_after_response_should_iterate_dict_on_error(self):
+        logger = logging.getLogger(__name__)
+        current = {'App': {'name': 'App'}}
+
+        resp = DevModePlugin(logger).after_response(current, {})
+        self.assertTrue('App' in resp)

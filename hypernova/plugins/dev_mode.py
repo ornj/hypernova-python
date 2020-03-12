@@ -32,7 +32,7 @@ class DevModePlugin(object):
 
     def after_response(self, current_response, original_response):
         updated = current_response.copy()
-        for name, data in updated.iteritems():
+        for name, data in updated.items():
             if data.get("error"):
                 data["html"] = render_error(name, data)
         return updated
